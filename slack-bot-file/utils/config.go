@@ -3,11 +3,12 @@ package utils
 import (
 	"fmt"
 	"github.com/spf13/viper"
+	api "slack-bot-file/api/slack"
 )
 
 type Config struct {
-	SlackBotToken string   `yaml:"slack_bot_token"`
-	ChannelIds    []string `yaml:"channel_ids"`
+	SlackBotToken string   `mapstructure:"slack_bot_token"`
+	ChannelIds    []string `mapstructure:"channel_ids"`
 }
 
 func LoadConfig(path string) (config Config, err error) {
@@ -27,5 +28,10 @@ func LoadConfig(path string) (config Config, err error) {
 	}
 
 	err = viper.Unmarshal(&config)
+
+	if err == nil {
+		api.InitSlackApi(config.SlackBotToken)
+	}
+
 	return
 }

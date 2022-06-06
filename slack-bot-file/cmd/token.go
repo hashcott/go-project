@@ -13,7 +13,7 @@ var cmdToken = &cobra.Command{
 	Long:  `Set OAuth Tokens to access bot Slack.`,
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		viper.Set("SLACK_BOT_TOKEN", args)
+		viper.Set("SLACK_BOT_TOKEN", args[0])
 		if err := viper.WriteConfig(); err != nil {
 			log.Fatal("Error occurred: ", err)
 		}
